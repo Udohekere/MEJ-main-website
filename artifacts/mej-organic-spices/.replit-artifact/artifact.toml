@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "MEJ Organic & Spices"
+description = "A warm, premium website for MEJ Organic & Spices in Grimsby, showcasing event catering, fresh floral arrangements, authentic African foodstuffs, and a guided quote request experience."
+version = "1.0.0"
+id = "artifacts/mej-organic-spices"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23052
+
+[services.development]
+run = "pnpm --filter @workspace/mej-organic-spices run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mej-organic-spices", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mej-organic-spices/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23052"
+BASE_PATH = "/"
